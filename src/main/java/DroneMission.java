@@ -1,4 +1,4 @@
-package main;
+package main.java;
 
 public class DroneMission {
     private final String missionName;
