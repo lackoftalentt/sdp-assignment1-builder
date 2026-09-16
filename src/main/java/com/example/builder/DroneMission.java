@@ -1,9 +1,9 @@
-package main.java;
+package main.java.com.example.builder;
 
 public class DroneMission {
 
     private final String missionName;
-    private final String missionType;
+    private final MissionType missionType;
     private final String destination;
 
     private final int altitude;
@@ -34,7 +34,7 @@ public class DroneMission {
     public static class Builder {
 
         private final String missionName;
-        private final String missionType;
+        private final MissionType missionType;
         private final String destination;
 
         private int altitude = 100;
@@ -49,7 +49,7 @@ public class DroneMission {
 
         public Builder(
                 String missionName,
-                String missionType,
+                MissionType missionType,
                 String destination
         ) {
             this.missionName = missionName;
@@ -103,7 +103,47 @@ public class DroneMission {
         }
 
         public DroneMission build() {
+            validate();
             return new DroneMission(this);
+        }
+
+        private void validate() {
+
+            // Single-field validation
+            if (missionName == null || missionName.isBlank()) {
+                throw new IllegalArgumentException(
+                        "Mission name cannot be empty"
+                );
+            }
+
+            if (altitude <= 0) {
+                throw new IllegalArgumentException(
+                        "Altitude must be greater than 0"
+                );
+            }
+
+            if (batteryCapacity <= 0) {
+                throw new IllegalArgumentException(
+                        "Battery capacity must be greater than 0"
+                );
+            }
+
+            // Cross-field validation #1
+            // Long-range missions require GPS.
+            if (missionType == MissionType.LONG_RANGE && !gpsEnabled) {
+                throw new IllegalArgumentException(
+                        "Long-range missions require GPS to be enabled"
+                );
+            }
+
+            // Cross-field validation #2
+            // Long-range missions require at least 5000 mAh.
+            if (missionType == MissionType.LONG_RANGE
+                    && batteryCapacity < 5000) {
+                throw new IllegalArgumentException(
+                        "Long-range missions require at least 5000 mAh battery capacity"
+                );
+            }
         }
     }
 
@@ -111,7 +151,7 @@ public class DroneMission {
         return missionName;
     }
 
-    public String getMissionType() {
+    public MissionType getMissionType() {
         return missionType;
     }
 

@@ -1,12 +1,13 @@
-package main.java;
+package main.java.com.example.builder;
 
 public class Main {
+
     public static void main(String[] args) {
 
         DroneMission mission =
                 new DroneMission.Builder(
                         "Mountain Survey",
-                        "LONG_RANGE",
+                        MissionType.LONG_RANGE,
                         "Almaty Mountains"
                 )
                         .altitude(300)
