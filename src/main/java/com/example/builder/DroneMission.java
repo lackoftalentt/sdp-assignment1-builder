@@ -116,9 +116,27 @@ public class DroneMission {
                 );
             }
 
+            if (missionType == null) {
+                throw new IllegalArgumentException(
+                        "Mission type cannot be null"
+                );
+            }
+
+            if (destination == null || destination.isBlank()) {
+                throw new IllegalArgumentException(
+                        "Destination cannot be empty"
+                );
+            }
+
             if (altitude <= 0) {
                 throw new IllegalArgumentException(
                         "Altitude must be greater than 0"
+                );
+            }
+
+            if (speed <= 0) {
+                throw new IllegalArgumentException(
+                        "Speed must be greater than 0"
                 );
             }
 
@@ -128,8 +146,19 @@ public class DroneMission {
                 );
             }
 
+            if (payloadKg < 0) {
+                throw new IllegalArgumentException(
+                        "Payload cannot be negative"
+                );
+            }
+
+            if (durationMinutes <= 0) {
+                throw new IllegalArgumentException(
+                        "Duration must be greater than 0"
+                );
+            }
+
             // Cross-field validation #1
-            // Long-range missions require GPS.
             if (missionType == MissionType.LONG_RANGE && !gpsEnabled) {
                 throw new IllegalArgumentException(
                         "Long-range missions require GPS to be enabled"
@@ -137,7 +166,6 @@ public class DroneMission {
             }
 
             // Cross-field validation #2
-            // Long-range missions require at least 5000 mAh.
             if (missionType == MissionType.LONG_RANGE
                     && batteryCapacity < 5000) {
                 throw new IllegalArgumentException(
