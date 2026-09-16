@@ -1,4 +1,4 @@
-package main.java.com.example.builder;
+package com.example.builder;
 
 public class DroneMission {
 
@@ -108,8 +108,12 @@ public class DroneMission {
         }
 
         private void validate() {
+            validateRequiredFields();
+            validatePositiveValues();
+            validateLongRangeMission();
+        }
 
-            // Single-field validation
+        private void validateRequiredFields() {
             if (missionName == null || missionName.isBlank()) {
                 throw new IllegalArgumentException(
                         "Mission name cannot be empty"
@@ -127,7 +131,9 @@ public class DroneMission {
                         "Destination cannot be empty"
                 );
             }
+        }
 
+        private void validatePositiveValues() {
             if (altitude <= 0) {
                 throw new IllegalArgumentException(
                         "Altitude must be greater than 0"
@@ -157,15 +163,15 @@ public class DroneMission {
                         "Duration must be greater than 0"
                 );
             }
+        }
 
-            // Cross-field validation #1
+        private void validateLongRangeMission() {
             if (missionType == MissionType.LONG_RANGE && !gpsEnabled) {
                 throw new IllegalArgumentException(
                         "Long-range missions require GPS to be enabled"
                 );
             }
 
-            // Cross-field validation #2
             if (missionType == MissionType.LONG_RANGE
                     && batteryCapacity < 5000) {
                 throw new IllegalArgumentException(

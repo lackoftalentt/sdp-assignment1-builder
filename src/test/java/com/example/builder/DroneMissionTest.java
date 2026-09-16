@@ -1,7 +1,5 @@
-package test.java.com.example.builder;
+package com.example.builder;
 
-import main.java.com.example.builder.DroneMission;
-import main.java.com.example.builder.MissionType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -183,5 +181,68 @@ class DroneMissionTest {
 
         assertEquals(100, firstMission.getAltitude());
         assertEquals(300, secondMission.getAltitude());
+    }
+
+    // 11. Preset configuration verification: Basic
+    @Test
+    void shouldCreateBasicMissionFromPreset() {
+        DroneMissionPresets presets = new DroneMissionPresets();
+        DroneMission mission = presets.createBasicMission(
+                "Urban Delivery",
+                "Astana"
+        );
+
+        assertEquals("Urban Delivery", mission.getMissionName());
+        assertEquals(MissionType.BASIC, mission.getMissionType());
+        assertEquals("Astana", mission.getDestination());
+        assertEquals(100, mission.getAltitude());
+        assertEquals(40, mission.getSpeed());
+        assertEquals(4000, mission.getBatteryCapacity());
+        assertFalse(mission.isGpsEnabled());
+        assertFalse(mission.isCameraEnabled());
+        assertTrue(mission.isReturnToHome());
+        assertTrue(mission.isObstacleAvoidance());
+    }
+
+    // 12. Preset configuration verification: Survey
+    @Test
+    void shouldCreateSurveyMissionFromPreset() {
+        DroneMissionPresets presets = new DroneMissionPresets();
+        DroneMission mission = presets.createSurveyMission(
+                "Forest Survey",
+                "Borovoe"
+        );
+
+        assertEquals("Forest Survey", mission.getMissionName());
+        assertEquals(MissionType.SURVEY, mission.getMissionType());
+        assertEquals("Borovoe", mission.getDestination());
+        assertEquals(150, mission.getAltitude());
+        assertEquals(50, mission.getSpeed());
+        assertEquals(5000, mission.getBatteryCapacity());
+        assertTrue(mission.isGpsEnabled());
+        assertTrue(mission.isCameraEnabled());
+        assertEquals(1.0, mission.getPayloadKg());
+        assertEquals(60, mission.getDurationMinutes());
+    }
+
+    // 13. Preset configuration verification: Long Range
+    @Test
+    void shouldCreateLongRangeMissionFromPreset() {
+        DroneMissionPresets presets = new DroneMissionPresets();
+        DroneMission mission = presets.createLongRangeMission(
+                "Border Recon",
+                "Zaisan"
+        );
+
+        assertEquals("Border Recon", mission.getMissionName());
+        assertEquals(MissionType.LONG_RANGE, mission.getMissionType());
+        assertEquals("Zaisan", mission.getDestination());
+        assertEquals(300, mission.getAltitude());
+        assertEquals(80, mission.getSpeed());
+        assertEquals(6000, mission.getBatteryCapacity());
+        assertTrue(mission.isGpsEnabled());
+        assertTrue(mission.isCameraEnabled());
+        assertEquals(1.5, mission.getPayloadKg());
+        assertEquals(90, mission.getDurationMinutes());
     }
 }

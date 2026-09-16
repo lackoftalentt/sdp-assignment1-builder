@@ -1,4 +1,4 @@
-package main.java.com.example.builder;
+package com.example.builder;
 
 public enum MissionType {
     BASIC,
