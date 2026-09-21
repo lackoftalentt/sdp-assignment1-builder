@@ -46,7 +46,7 @@ public class Main {
         System.out.println("\n=== SURVEY PRESET ===");
         printMission(survey);
 
-        System.out.println("\n=== LONG RANGE PRESET 🍌 ===");
+        System.out.println("\n=== LONG RANGE PRESET ===");
         printMission(longRange);
     }
 

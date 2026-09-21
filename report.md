@@ -513,4 +513,4 @@ Duration: 90 min
 ## GitHub Repository
 
 GitHub Repository URL:
-`https://github.com/<YOUR_USERNAME>/assignment-1-builder`
+`https://github.com/lackoftalentt/sdp-assignment1-builder`

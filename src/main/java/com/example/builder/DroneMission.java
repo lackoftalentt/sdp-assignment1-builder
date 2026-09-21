@@ -32,7 +32,6 @@ public class DroneMission {
     }
 
     public static class Builder {
-
         private final String missionName;
         private final MissionType missionType;
         private final String destination;
